@@ -1,4 +1,5 @@
 import LottieView from "lottie-react-native";
+import React from "react";
 import { StyleSheet, View } from "react-native";
 import LottieAnimation from "../components/LottieAnimation";
 interface SplashScreenProps {
