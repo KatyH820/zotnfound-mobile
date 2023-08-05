@@ -4,7 +4,13 @@ import LottieAnimation from "../components/LottieAnimation";
 import Button from "../components/Button";
 import { Color } from "../constant/Color";
 import { AntDesign } from "@expo/vector-icons";
-export default function Login(): JSX.Element {
+import { NavigationProp } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+
+export default function Login({ navigation }): JSX.Element {
+  function signInHandler() {
+    navigation.navigate("Home");
+  }
   return (
     <View style={styles.screen}>
       <Text style={styles.title}>Welcome to ZotnFound</Text>
@@ -16,7 +22,7 @@ export default function Login(): JSX.Element {
       </View>
 
       <Text style={styles.label}>Please Sign In With UCI Email</Text>
-      <Button style={styles.button}>
+      <Button style={styles.button} onPress={signInHandler}>
         <AntDesign name="google" size={24} color="white" />
         <Text style={styles.buttonText}>Sign In With Google</Text>
       </Button>

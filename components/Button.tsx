@@ -3,10 +3,16 @@ import { Pressable, StyleSheet } from "react-native";
 interface ButtonProps {
   style: object;
   children: any;
+  onPress: () => void;
 }
-export default function Button({ children, style }: ButtonProps): JSX.Element {
+export default function Button({
+  children,
+  style,
+  onPress,
+}: ButtonProps): JSX.Element {
   return (
     <Pressable
+      onPress={onPress}
       style={({ pressed }) => [styles.button, pressed && styles.pressed, style]}
     >
       {children}
