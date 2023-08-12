@@ -4,6 +4,6 @@ export async function fetchItems() {
     const data = await axios.get("http://localhost:3001/items");
     return data.data;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }

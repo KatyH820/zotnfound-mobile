@@ -1,5 +1,5 @@
 import React, { LegacyRef, useEffect, useRef, useState } from "react";
-import { View, StyleSheet, Animated } from "react-native";
+import { View, StyleSheet, Animated, FlatList } from "react-native";
 import MapView, { MarkerPressEvent, PROVIDER_GOOGLE } from "react-native-maps";
 import { Color } from "../constant/Color";
 import CustomMarker from "./CustomMarker";
@@ -11,7 +11,7 @@ import { ScrollCardItem } from "./ScrollCardItem";
 import { fetchItems } from "../util/db";
 
 export default function Map(): JSX.Element {
-  const _scrollView = useRef(null);
+  const _scrollView = useRef<FlatList | null>(null); // Replace FlatList with your specific type if needed
   const _map: LegacyRef<MapView> = useRef(null);
 
   const [items, setItems] = useState([]);
@@ -63,15 +63,15 @@ export default function Map(): JSX.Element {
     }
     fetch();
   }, []);
-  // console.log(items[0]);
+
 
   function onMarkerPress(markerID) {
-    console.log(markerID);
     if (_scrollView.current) {
       const x = markerID * 350 + markerID * 20;
-      _scrollView.current.scrollToOffset({ x: x, y: 0, animated: true });
+      _scrollView.current.scrollToOffset({ offset: x, animated: true });
     }
   }
+
   return (
     <View style={styles.container}>
       <MapView
@@ -95,7 +95,7 @@ export default function Map(): JSX.Element {
               lat={item.location[0]}
               lng={item.location[1]}
               description={item.description}
-              title={item.title}
+              title={item.name}
               onPress={() => onMarkerPress(index)}
             />
           ))}
