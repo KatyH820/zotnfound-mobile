@@ -54,6 +54,7 @@ export default function Map(): JSX.Element {
       }, 10);
     });
   });
+
   useEffect(() => {
     async function fetch() {
       const data = await fetchItems();
@@ -63,7 +64,6 @@ export default function Map(): JSX.Element {
     }
     fetch();
   }, []);
-
 
   function onMarkerPress(markerID) {
     if (_scrollView.current) {
@@ -101,7 +101,7 @@ export default function Map(): JSX.Element {
           ))}
       </MapView>
       <SearchBar />
-      <ScrollCategory />
+      <ScrollCategory setItems={setItems} />
       {items.length > 0 && (
         <ScrollCardItem
           item={items}

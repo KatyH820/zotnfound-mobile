@@ -5,7 +5,7 @@ import {
   DrawerItemList,
   createDrawerNavigator,
 } from "@react-navigation/drawer";
-import React from "react";
+import React, { useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
 import { Linking, StyleSheet, Switch, Text, View } from "react-native";
@@ -23,6 +23,7 @@ import { Provider, useDispatch, useSelector } from "react-redux";
 import { store } from "./store";
 import { themeAction } from "./store/theme";
 import Detail from "./screens/Detail";
+
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 
@@ -91,7 +92,6 @@ export default function App() {
   if (isLoading) {
     return <SplashScreen onFinish={setIsLoading} />;
   }
-
   return (
     <Provider store={store}>
       <NavigationContainer>
