@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     height: "4%",
     position: "absolute",
     justifyContent: "space-between",
-    marginTop: "13%",
+    marginTop: "13.5%",
     borderRadius: 13,
     backgroundColor: "white",
     paddingHorizontal: "3%",
