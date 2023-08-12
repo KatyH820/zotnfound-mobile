@@ -1,24 +1,39 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, Pressable } from "react-native";
 
 export default function Card({ item }): JSX.Element {
-  return (
-    <View style={styles.card}>
-      <Text style={styles.title}>{item.name}</Text>
-      <View style={styles.imgContainer}>
-        <Image
-          source={{ uri: item.image }}
-          style={styles.cardImage}
-          resizeMode="cover"
-        />
-        <View style={[styles.label, item.isLost && { backgroundColor: "red" }]}>
-          <Text style={styles.labelText}>{item.isLost ? "Lost" : "Found"}</Text>
-        </View>
-      </View>
+  const navigation = useNavigation();
+  function navigateToDetail() {
+    navigation.navigate("Detail", item);
+  }
 
-      <Text style={styles.description}>{item.description}</Text>
-      <Text style={styles.description}>{item.itemDate}</Text>
-    </View>
+  return (
+    <Pressable
+      onPress={navigateToDetail}
+      style={({ pressed }) => [pressed && styles.pressed]}
+    >
+      <View style={styles.card}>
+        <Text style={styles.title}>{item.name}</Text>
+        <View style={styles.imgContainer}>
+          <Image
+            source={{ uri: item.image }}
+            style={styles.cardImage}
+            resizeMode="cover"
+          />
+          <View
+            style={[styles.label, item.islost && { backgroundColor: "red" }]}
+          >
+            <Text style={styles.labelText}>
+              {item.islost ? "Lost" : "Found"}
+            </Text>
+          </View>
+        </View>
+
+        <Text style={styles.description}>{item.description}</Text>
+        <Text style={styles.description}>{item.itemDate}</Text>
+      </View>
+    </Pressable>
   );
 }
 
@@ -70,5 +85,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "white",
     fontSize: 18,
+  },
+  pressed: {
+    opacity: 0.7,
   },
 });

@@ -22,6 +22,7 @@ import { Color } from "./constant/Color";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import { store } from "./store";
 import { themeAction } from "./store/theme";
+import Detail from "./screens/Detail";
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 
@@ -73,6 +74,14 @@ function RootStack() {
       >
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Home" component={HomeStack} />
+        <Stack.Screen
+          name="Detail"
+          component={Detail}
+          options={{
+            presentation: "modal",
+            animation: "slide_from_bottom",
+          }}
+        />
       </Stack.Navigator>
     </>
   );
