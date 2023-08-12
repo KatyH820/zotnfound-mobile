@@ -82,12 +82,6 @@ export default function Map(): JSX.Element {
         zoomEnabled
         customMapStyle={isDark && nightStyle}
       >
-        {/* <CustomMarker
-          lat={initialRegion.latitude}
-          lng={initialRegion.longitude}
-          title="Test"
-          description="Just a test"
-        /> */}
         {items.length > 0 &&
           items.map((item, index) => (
             <CustomMarker

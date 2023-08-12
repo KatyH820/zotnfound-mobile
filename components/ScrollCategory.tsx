@@ -6,6 +6,8 @@ import Phone from "./categoryIcon/Phone";
 import Wallet from "./categoryIcon/Wallet";
 import Others from "./categoryIcon/Others";
 import Key from "./categoryIcon/Key";
+import { fetchItems, filterItemsByCategory } from "../util/db";
+import Everything from "./categoryIcon/Everything";
 
 interface ScrollCategoryProps {
   setItems: React.Dispatch<React.SetStateAction<never[]>>;
@@ -13,17 +15,32 @@ interface ScrollCategoryProps {
 export default function ScrollCategory({
   setItems,
 }: ScrollCategoryProps): JSX.Element {
-  const categoryType = ["phone", "headphone", "wallet", "key", "other"];
+  const categoryType = [
+    "everything",
+    "phone",
+    "headphone",
+    "wallet",
+    "key",
+    "other",
+  ];
 
-  function filterByCategory(category: string) {
-    
+  async function filterByCategory(category: string) {
+    if (category !== "everything") {
+      const data = await filterItemsByCategory(category);
+      setItems(data);
+    } else {
+      const data = await fetchItems();
+      setItems(data);
+    }
   }
   const categoryList = categoryType.map((ctgy, index) => {
     let icon: React.JSX.Element;
-    if (ctgy === "headphone") {
-      icon = <Headphone color="black" />;
+    if (ctgy === "everything") {
+      icon = <Everything color="black" />;
     } else if (ctgy === "phone") {
       icon = <Phone color="black" />;
+    } else if (ctgy === "headphone") {
+      icon = <Headphone color="black" />;
     } else if (ctgy === "wallet") {
       icon = <Wallet color="black" />;
     } else if (ctgy === "key") {
