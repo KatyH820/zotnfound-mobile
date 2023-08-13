@@ -4,15 +4,16 @@ import { StyleSheet, View } from "react-native";
 import Card from "./Card";
 
 export const ScrollCardItem = React.forwardRef(
-  ({ item, mapAnimation }, ref) => {
+  ({ items, mapAnimation }, ref) => {
     function renderItem({ item }): JSX.Element {
       return <Card item={item} />;
     }
+
     return (
       <Animated.FlatList
         ref={ref}
         horizontal={true}
-        data={item}
+        data={items}
         renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}
         pagingEnabled

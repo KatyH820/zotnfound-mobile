@@ -1,10 +1,28 @@
 import { View, TextInput, StyleSheet, Text } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
-import React from "react";
-export default function SearchBar(): JSX.Element {
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+interface SearchBarProps {
+  items: Array<Object>[];
+  setItems: React.Dispatch<React.SetStateAction<never[]>>;
+}
+export default function SearchBar({
+  items,
+  setItems,
+}: SearchBarProps): JSX.Element {
+  const allItems = useSelector((state) => state.items);
+
+  function searchBarFilter(text) {
+    const filtered = allItems.filter(
+      (item) => item.name.includes(text) || item.description.includes(text)
+    );
+    setItems(filtered);
+  }
+
   return (
     <View style={styles.searchBar}>
       <TextInput
+        onChangeText={(e) => searchBarFilter(e)}
         placeholder="Search here"
         placeholderTextColor="black"
         autoCapitalize="none"
@@ -34,6 +52,7 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
   },
   text: {
+    width: "90%",
     fontSize: 16,
   },
   icon: {

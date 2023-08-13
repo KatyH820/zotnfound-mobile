@@ -8,6 +8,7 @@ import Others from "./categoryIcon/Others";
 import Key from "./categoryIcon/Key";
 import { fetchItems, filterItemsByCategory } from "../util/db";
 import Everything from "./categoryIcon/Everything";
+import { useSelector } from "react-redux";
 
 interface ScrollCategoryProps {
   setItems: React.Dispatch<React.SetStateAction<never[]>>;
@@ -15,13 +16,14 @@ interface ScrollCategoryProps {
 export default function ScrollCategory({
   setItems,
 }: ScrollCategoryProps): JSX.Element {
+  const allItems = useSelector((state) => state.items);
   const categoryType = [
-    "everything",
-    "phone",
-    "headphone",
-    "wallet",
-    "key",
-    "other",
+    "Everything",
+    "Phone",
+    "Headphone",
+    "Wallet",
+    "Key",
+    "Other",
   ];
 
   async function filterByCategory(category: string) {
@@ -29,28 +31,27 @@ export default function ScrollCategory({
       const data = await filterItemsByCategory(category);
       setItems(data);
     } else {
-      const data = await fetchItems();
-      setItems(data);
+      setItems(allItems);
     }
   }
   const categoryList = categoryType.map((ctgy, index) => {
     let icon: React.JSX.Element;
-    if (ctgy === "everything") {
+    if (ctgy === "Everything") {
       icon = <Everything color="black" />;
-    } else if (ctgy === "phone") {
+    } else if (ctgy === "Phone") {
       icon = <Phone color="black" />;
-    } else if (ctgy === "headphone") {
+    } else if (ctgy === "Headphone") {
       icon = <Headphone color="black" />;
-    } else if (ctgy === "wallet") {
+    } else if (ctgy === "Wallet") {
       icon = <Wallet color="black" />;
-    } else if (ctgy === "key") {
+    } else if (ctgy === "Key") {
       icon = <Key color="black" />;
-    } else if (ctgy === "other") {
+    } else if (ctgy === "Other") {
       icon = <Others color="black" />;
     }
     return (
       <Pressable
-        onPress={() => filterByCategory(ctgy)}
+        onPress={() => filterByCategory(ctgy.toLowerCase())}
         style={({ pressed }) => [styles.category, pressed && styles.pressed]}
         key={index}
       >

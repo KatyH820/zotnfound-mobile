@@ -4,17 +4,20 @@ import MapView, { MarkerPressEvent, PROVIDER_GOOGLE } from "react-native-maps";
 import { Color } from "../constant/Color";
 import CustomMarker from "./CustomMarker";
 import { nightStyle } from "../constant/MapStyle";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import SearchBar from "./SearchBar";
 import ScrollCategory from "./ScrollCategory";
 import { ScrollCardItem } from "./ScrollCardItem";
 import { fetchItems } from "../util/db";
+import { itemsAction } from "../store/Items";
 
 export default function Map(): JSX.Element {
   const _scrollView = useRef<FlatList | null>(null); // Replace FlatList with your specific type if needed
   const _map: LegacyRef<MapView> = useRef(null);
+  const dispatch = useDispatch();
 
   const [items, setItems] = useState([]);
+
   const isDark = useSelector((state) => state.theme.dark);
   const initialRegion = {
     latitude: 33.6461,
@@ -59,6 +62,7 @@ export default function Map(): JSX.Element {
     async function fetch() {
       const data = await fetchItems();
       if (data.length > 0) {
+        dispatch(itemsAction.initialize(data));
         setItems(data);
       }
     }
@@ -94,11 +98,12 @@ export default function Map(): JSX.Element {
             />
           ))}
       </MapView>
-      <SearchBar />
+      <SearchBar items={items} setItems={setItems} />
       <ScrollCategory setItems={setItems} />
+
       {items.length > 0 && (
         <ScrollCardItem
-          item={items}
+          items={items}
           mapAnimation={mapAnimation}
           ref={_scrollView}
         />
