@@ -18,14 +18,21 @@ import { fetchItems } from "../util/db";
 import { itemsAction } from "../store/Items";
 import { MaterialIcons } from "@expo/vector-icons";
 import Button from "./Button";
-import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import {
+  useFocusEffect,
+  useIsFocused,
+  useNavigation,
+  useRoute,
+} from "@react-navigation/native";
 
 export default function Map(): JSX.Element {
   const navigation = useNavigation();
   const _scrollView = useRef<FlatList | null>(null); // Replace FlatList with your specific type if needed
   const _map: LegacyRef<MapView> = useRef(null);
   const dispatch = useDispatch();
+  const route = useRoute();
 
+  const isFocused = useIsFocused();
   const [items, setItems] = useState([]);
   const itemData = useSelector((state) => state.items);
   const isDark = useSelector((state) => state.theme.dark);
@@ -42,8 +49,8 @@ export default function Map(): JSX.Element {
   useEffect(() => {
     mapAnimation.addListener(({ value }) => {
       let index = Math.floor(value / 350 + 0.3);
-      if (index >= items.length) {
-        index = items.length - 1;
+      if (index >= itemData.length) {
+        index = itemData.length - 1;
       }
       if (index <= 0) {
         index = 0;
@@ -79,11 +86,11 @@ export default function Map(): JSX.Element {
     fetch();
   }, []);
 
-  useFocusEffect(() => {
-    if (itemData.length > 0 && itemData.length > items.length) {
-      setItems(itemData);
+  useEffect(() => {
+    if (isFocused && route.params && route.params.newItem) {
+      setItems((prevItems) => [...prevItems, route.params.newItem]);
     }
-  });
+  }, [isFocused, route.params]);
 
   function onMarkerPress(markerID) {
     if (_scrollView.current) {

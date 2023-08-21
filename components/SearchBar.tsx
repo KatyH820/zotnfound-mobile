@@ -14,7 +14,9 @@ export default function SearchBar({
 
   function searchBarFilter(text) {
     const filtered = allItems.filter(
-      (item) => item.name.includes(text) || item.description.includes(text)
+      (item) =>
+        item.name.toLowerCase().includes(text.toLowerCase()) ||
+        item.description.includes(text.toLowerCase())
     );
     setItems(filtered);
   }

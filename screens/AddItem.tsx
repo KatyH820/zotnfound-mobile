@@ -139,26 +139,27 @@ export default function AddItem(): JSX.Element {
     // image: image,
     // isLost: isLost,
     // });
+
     if (!pickedLocation || !nameInput || !descriptionInput || !type || !image) {
       Alert.alert("Missing Information", "You must enter all Information");
       return;
     }
-    dispatch(
-      itemsAction.addItem({
-        id: nameInput + descriptionInput + type,
-        name: nameInput,
-        description: descriptionInput,
-        type: type,
-        location: [pickedLocation.lat, pickedLocation.lng],
-        date: moment().format("YYYY-MM-DD"),
-        itemDate: itemDate.format("YYYY-MM-DD"),
-        email: "",
-        image: image,
-        isLost: isLost,
-      })
-    );
 
-    navigation.navigate("Home");
+    const newItem = {
+      id: nameInput + descriptionInput + type,
+      name: nameInput,
+      description: descriptionInput,
+      type: type,
+      location: [pickedLocation.lat, pickedLocation.lng],
+      date: moment().format("YYYY-MM-DD"),
+      itemDate: itemDate.format("YYYY-MM-DD"),
+      email: "",
+      image: image,
+      isLost: isLost,
+    };
+    dispatch(itemsAction.addItem(newItem));
+
+    navigation.navigate("Map", { newItem });
   }
 
   return (
