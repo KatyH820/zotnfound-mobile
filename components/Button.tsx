@@ -1,7 +1,7 @@
 import React from "react";
 import { Pressable, StyleSheet } from "react-native";
 interface ButtonProps {
-  style: object;
+  style?: object;
   children: any;
   onPress: () => void;
 }

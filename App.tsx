@@ -23,6 +23,8 @@ import { Provider, useDispatch, useSelector } from "react-redux";
 import { store } from "./store";
 import { themeAction } from "./store/theme";
 import Detail from "./screens/Detail";
+import AddItem from "./screens/AddItem";
+import ChooseLocation from "./screens/ChooseLocation";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -81,6 +83,24 @@ function RootStack() {
           options={{
             presentation: "modal",
             animation: "slide_from_bottom",
+          }}
+        />
+        <Stack.Screen
+          name="Add"
+          component={AddItem}
+          options={{
+            presentation: "modal",
+            animation: "slide_from_bottom",
+          }}
+        />
+        <Stack.Screen
+          name="Choose"
+          component={ChooseLocation}
+          options={{
+            presentation: "modal",
+            animation: "slide_from_bottom",
+            headerShown: true,
+            title: "Choose Location From Map",
           }}
         />
       </Stack.Navigator>

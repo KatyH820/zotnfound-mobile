@@ -1,4 +1,10 @@
-import React, { LegacyRef, useEffect, useRef, useState } from "react";
+import React, {
+  LegacyRef,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { View, StyleSheet, Animated, FlatList } from "react-native";
 import MapView, { MarkerPressEvent, PROVIDER_GOOGLE } from "react-native-maps";
 import { Color } from "../constant/Color";
@@ -10,14 +16,18 @@ import ScrollCategory from "./ScrollCategory";
 import { ScrollCardItem } from "./ScrollCardItem";
 import { fetchItems } from "../util/db";
 import { itemsAction } from "../store/Items";
+import { MaterialIcons } from "@expo/vector-icons";
+import Button from "./Button";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 
 export default function Map(): JSX.Element {
+  const navigation = useNavigation();
   const _scrollView = useRef<FlatList | null>(null); // Replace FlatList with your specific type if needed
   const _map: LegacyRef<MapView> = useRef(null);
   const dispatch = useDispatch();
 
   const [items, setItems] = useState([]);
-
+  const itemData = useSelector((state) => state.items);
   const isDark = useSelector((state) => state.theme.dark);
   const initialRegion = {
     latitude: 33.6461,
@@ -69,11 +79,21 @@ export default function Map(): JSX.Element {
     fetch();
   }, []);
 
+  useFocusEffect(() => {
+    if (itemData.length > 0 && itemData.length > items.length) {
+      setItems(itemData);
+    }
+  });
+
   function onMarkerPress(markerID) {
     if (_scrollView.current) {
       const x = markerID * 350 + markerID * 20;
       _scrollView.current.scrollToOffset({ offset: x, animated: true });
     }
+  }
+
+  function navigateToAddItem() {
+    navigation.navigate("Add");
   }
 
   return (
@@ -94,13 +114,15 @@ export default function Map(): JSX.Element {
               lng={item.location[1]}
               description={item.description}
               title={item.name}
-              onPress={() => onMarkerPress(index)}
+              // onPress={() => onMarkerPress(index)}
             />
           ))}
       </MapView>
       <SearchBar items={items} setItems={setItems} />
       <ScrollCategory setItems={setItems} />
-
+      <Button style={styles.button} onPress={navigateToAddItem}>
+        <MaterialIcons name="add-location" size={28} color="black" />
+      </Button>
       {items.length > 0 && (
         <ScrollCardItem
           items={items}
@@ -123,12 +145,12 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   button: {
-    position: "absolute",
-    bottom: "10%",
-    right: "5%",
     justifyContent: "center",
     alignItems: "center",
+    position: "absolute",
+    bottom: "35%",
+    right: 0,
     backgroundColor: Color.buttonGray,
-    padding: "2%",
+    padding: 8,
   },
 });
