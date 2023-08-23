@@ -15,17 +15,17 @@ export const ScrollCardItem = React.forwardRef(
         horizontal={true}
         data={items}
         renderItem={renderItem}
-        keyExtractor={(item) => item?.id.toString()}
+        keyExtractor={(item) => item.id.toString()}
         // pagingEnabled
-        snapToInterval={370}
-        snapToAlignment="center"
+        // snapToInterval={370}
+        // snapToAlignment="center"
         showsHorizontalScrollIndicator={false}
         scrollEventThrottle={1}
         style={styles.scrollContainer}
         contentContainerStyle={{
           justifyContent: "space-evenly",
         }}
-        ListFooterComponent={<View style={{ width: 30 }} />}
+        ListFooterComponent={<View style={{ width: 20 }} />}
         onScroll={Animated.event(
           [
             {

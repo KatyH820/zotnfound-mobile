@@ -64,10 +64,10 @@ const styles = StyleSheet.create({
   card: {
     width: 350,
     height: "100%",
-    padding: "5%",
-    paddingHorizontal: "2%",
+    padding: 20,
+    paddingHorizontal: 10,
     borderRadius: 10,
-    marginHorizontal: 5,
+    marginHorizontal: 10,
     backgroundColor: "white",
     justifyContent: "center",
     alignItems: "center",

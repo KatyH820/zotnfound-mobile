@@ -159,5 +159,6 @@ const styles = StyleSheet.create({
     right: 0,
     backgroundColor: Color.buttonGray,
     padding: 8,
+    marginRight: "2%",
   },
 });
