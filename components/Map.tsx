@@ -87,8 +87,8 @@ export default function Map(): JSX.Element {
   }, []);
 
   useEffect(() => {
-    if (isFocused && route.params && route.params.newItem) {
-      setItems((prevItems) => [...prevItems, route.params.newItem]);
+    if (isFocused && route.params && route.params) {
+      setItems((prevItems) => [route.params, ...prevItems]);
     }
   }, [isFocused, route.params]);
 

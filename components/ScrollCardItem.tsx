@@ -16,7 +16,7 @@ export const ScrollCardItem = React.forwardRef(
         data={items}
         renderItem={renderItem}
         keyExtractor={(item) => item?.id.toString()}
-        pagingEnabled
+        // pagingEnabled
         snapToInterval={370}
         snapToAlignment="center"
         showsHorizontalScrollIndicator={false}
@@ -25,7 +25,7 @@ export const ScrollCardItem = React.forwardRef(
         contentContainerStyle={{
           justifyContent: "space-evenly",
         }}
-        ListFooterComponent={<View style={{ width: 20 }} />}
+        ListFooterComponent={<View style={{ width: 30 }} />}
         onScroll={Animated.event(
           [
             {

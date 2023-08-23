@@ -5,7 +5,7 @@ const itemsSlice = createSlice({
   initialState: [],
   reducers: {
     addItem(state, action) {
-      state.push(action.payload);
+      state.unshift(action.payload);
     },
     deleteItem(state, action) {},
     updateItem(state, action) {},

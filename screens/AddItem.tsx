@@ -26,6 +26,8 @@ import { addItem } from "../util/db";
 import { useDispatch } from "react-redux";
 import { itemsAction } from "../store/Items";
 import moment from "moment";
+import "react-native-get-random-values";
+import { v4 as uuidv4 } from "uuid";
 
 export default function AddItem(): JSX.Element {
   const dispatch = useDispatch();
@@ -127,39 +129,31 @@ export default function AddItem(): JSX.Element {
   function pickOnMap() {
     navigation.navigate("Choose");
   }
-  function submitHandler() {
-    // await addItem({
-    // name: nameInput,
-    // description: descriptionInput,
-    // type: type,
-    // location: [pickedLocation.lat, pickedLocation.lng],
-    // date: new Date(),
-    // itemDate: itemDate,
-    // email: "",
-    // image: image,
-    // isLost: isLost,
-    // });
 
+  async function submitHandler() {
     if (!pickedLocation || !nameInput || !descriptionInput || !type || !image) {
       Alert.alert("Missing Information", "You must enter all Information");
       return;
     }
 
     const newItem = {
-      id: nameInput + descriptionInput + type,
       name: nameInput,
       description: descriptionInput,
-      type: type,
+      type: type.toLowerCase(),
       location: [pickedLocation.lat, pickedLocation.lng],
       date: moment().format("YYYY-MM-DD"),
       itemDate: itemDate.format("YYYY-MM-DD"),
       email: "",
-      image: image,
+      image:
+        "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-980x653.jpg", // for now it is hardcoded to work with backend, later change to image
       isLost: isLost,
     };
-    dispatch(itemsAction.addItem(newItem));
 
-    navigation.navigate("Map", { newItem });
+    const localId = uuidv4();
+    dispatch(itemsAction.addItem({ ...newItem, id: localId }));
+    addItem(newItem);
+
+    navigation.navigate("Map", { ...newItem, id: localId });
   }
 
   return (
@@ -186,7 +180,6 @@ export default function AddItem(): JSX.Element {
         save="value"
         boxStyles={styles.dropdown}
         notFoundText="No type found, please select type other"
-        defaultOption={{ key: 5, value: "Other" }}
       />
       <View style={styles.container}>
         <Text style={styles.text}>This is Lost Item</Text>
