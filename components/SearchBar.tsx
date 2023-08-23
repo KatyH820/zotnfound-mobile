@@ -13,11 +13,12 @@ export default function SearchBar({
   const allItems = useSelector((state) => state.items);
 
   function searchBarFilter(text) {
-    const filtered = allItems.filter(
-      (item) =>
+    const filtered = allItems.filter((item) => {
+      return (
         item.name.toLowerCase().includes(text.toLowerCase()) ||
-        item.description.includes(text.toLowerCase())
-    );
+        item.description.toLowerCase().includes(text.toLowerCase())
+      );
+    });
     setItems(filtered);
   }
 
