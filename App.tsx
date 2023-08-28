@@ -9,10 +9,10 @@ import RootStack from "./stack/RootStack";
 import { StatusBar } from "expo-status-bar";
 
 export default function App() {
-  const [isLoading, setIsLoading] = useState(true);
-  if (isLoading) {
-    return <SplashScreen onFinish={setIsLoading} />;
-  }
+  // const [isLoading, setIsLoading] = useState(true);
+  // if (isLoading) {
+  //   return <SplashScreen onFinish={setIsLoading} />;
+  // }
 
   return (
     <Provider store={store}>

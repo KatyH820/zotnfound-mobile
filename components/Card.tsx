@@ -53,8 +53,8 @@ export default function Card({ item }): JSX.Element {
           <View style={styles.categoryLabel}>{icon}</View>
         </View>
 
-        <Text style={styles.description}>{item.description}</Text>
-        <Text style={styles.description}>{item.itemDate}</Text>
+        {/* <Text style={styles.description}>{item.description}</Text> */}
+        <Text style={styles.description}>{item.itemdate}</Text>
       </View>
     </Pressable>
   );
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 2, height: 2 },
   },
   imgContainer: {
-    height: "90%",
+    height: "100%",
     width: "100%",
   },
   cardImage: {

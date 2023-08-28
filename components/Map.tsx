@@ -79,18 +79,22 @@ export default function Map(): JSX.Element {
     async function fetch() {
       const data = await fetchItems();
       if (data.length > 0) {
-        dispatch(itemsAction.initialize(data));
+        dispatch(itemsAction.initialize(data.reverse()));
         setItems(data);
       }
     }
     fetch();
   }, []);
 
+  // useEffect(() => {
+  //   if (isFocused && route.params && route.params) {
+  //     setItems((prevItems) => [route.params, ...prevItems]);
+  //   }
+  // }, [isFocused, route.params]);
+
   useEffect(() => {
-    if (isFocused && route.params && route.params) {
-      setItems((prevItems) => [route.params, ...prevItems]);
-    }
-  }, [isFocused, route.params]);
+    setItems(itemData);
+  }, [itemData]);
 
   function onMarkerPress(markerID) {
     if (_scrollView.current) {

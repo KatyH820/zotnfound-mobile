@@ -7,7 +7,9 @@ const itemsSlice = createSlice({
     addItem(state, action) {
       state.unshift(action.payload);
     },
-    deleteItem(state, action) {},
+    deleteItem(state, action) {
+      return state.filter((item) => item.id !== action.payload);
+    },
     updateItem(state, action) {},
     initialize(state, action) {
       return action.payload;

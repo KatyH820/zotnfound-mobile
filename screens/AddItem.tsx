@@ -142,16 +142,16 @@ export default function AddItem(): JSX.Element {
       type: type.toLowerCase(),
       location: [pickedLocation.lat, pickedLocation.lng],
       date: moment().format("YYYY-MM-DD"),
-      itemDate: itemDate.format("YYYY-MM-DD"),
+      itemdate: itemDate.format("YYYY-MM-DD"),
       email: "",
       image:
         "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-980x653.jpg", // for now it is hardcoded to work with backend, later change to image
-      isLost: isLost,
+      islost: isLost,
     };
 
     const localId = uuidv4();
     dispatch(itemsAction.addItem({ ...newItem, id: localId }));
-    addItem(newItem);
+    await addItem(newItem);
 
     navigation.navigate("Map", { ...newItem, id: localId });
   }

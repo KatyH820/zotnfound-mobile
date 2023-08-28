@@ -11,7 +11,6 @@ export default function SearchBar({
   setItems,
 }: SearchBarProps): JSX.Element {
   const allItems = useSelector((state) => state.items);
-
   function searchBarFilter(text) {
     const filtered = allItems.filter((item) => {
       return (

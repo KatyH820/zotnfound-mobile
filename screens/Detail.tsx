@@ -10,12 +10,15 @@ import Others from "../components/categoryIcon/Others";
 import Button from "../components/Button";
 import { useEffect, useState } from "react";
 import * as MailComposer from "expo-mail-composer";
-export default function Detail(): JSX.Element {
+import { deleteItem } from "../util/db";
+import { useDispatch } from "react-redux";
+import { itemsAction } from "../store/Items";
+export default function Detail({ navigation }): JSX.Element {
   const route = useRoute();
   const itemInfo = route.params;
 
   const [isAvailable, setIsAvailable] = useState(false);
-
+  const dispatch = useDispatch();
   useEffect(() => {
     async function checkEmailIsAvailable() {
       const isMailAvailable = await MailComposer.isAvailableAsync();
@@ -47,7 +50,17 @@ export default function Detail(): JSX.Element {
     } catch (error) {
       console.error(error);
     }
-  } 
+  }
+
+  async function deleteHandler() {
+    try {
+      deleteItem(itemInfo.id);
+      dispatch(itemsAction.deleteItem(itemInfo.id));
+      navigation.navigate("Home");
+    } catch (error) {
+      console.error(error);
+    }
+  }
   return (
     <View style={styles.screen}>
       <Text style={styles.title}>{itemInfo.name}</Text>
@@ -63,11 +76,20 @@ export default function Detail(): JSX.Element {
       <Text style={styles.description}>{itemInfo.email}</Text>
       <Text style={styles.description}>{itemInfo.itemdate}</Text>
       <Text style={styles.description}>{itemInfo.description}</Text>
-      {isAvailable && (
-        <Button style={styles.button} onPress={sendEmailHandler}>
-          <Text style={styles.buttonText}>Send Email</Text>
+
+      <View style={styles.buttonContainer}>
+        {isAvailable && (
+          <Button style={styles.button} onPress={sendEmailHandler}>
+            <Text style={styles.buttonText}>Send Email</Text>
+          </Button>
+        )}
+        <Button
+          style={[styles.button, { backgroundColor: Color.lostRed }]}
+          onPress={deleteHandler}
+        >
+          <Text style={styles.buttonText}>Delete Item</Text>
         </Button>
-      )}
+      </View>
     </View>
   );
 }
@@ -130,5 +152,11 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 18,
     fontWeight: "bold",
+  },
+  buttonContainer: {
+    marginTop: "5%",
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-around",
   },
 });

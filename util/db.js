@@ -1,7 +1,6 @@
 import axios from "axios";
 import Constants from "expo-constants";
 
-
 //This so I can test it on my real device with backend
 const BACKENDURL = Constants?.expoConfig?.hostUri
   ? `http://${Constants.expoConfig.hostUri
@@ -9,7 +8,6 @@ const BACKENDURL = Constants?.expoConfig?.hostUri
       .shift()
       .concat(`:3001/items`)}`
   : `http://localhost:3001/items`;
-
 
 //before
 // const BACKENDURL = "http://localhost:3001/items";
@@ -36,6 +34,14 @@ export async function filterItemsByCategory(category) {
 export async function addItem(item) {
   try {
     await axios.post(BACKENDURL, item);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function deleteItem(itemId) {
+  try {
+    await axios.delete(`${BACKENDURL}/${itemId}`);
   } catch (error) {
     console.error(error);
   }
