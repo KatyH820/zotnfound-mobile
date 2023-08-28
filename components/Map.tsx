@@ -1,12 +1,6 @@
-import React, {
-  LegacyRef,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { LegacyRef, useEffect, useRef, useState } from "react";
 import { View, StyleSheet, Animated, FlatList } from "react-native";
-import MapView, { MarkerPressEvent, PROVIDER_GOOGLE } from "react-native-maps";
+import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import { Color } from "../constant/Color";
 import CustomMarker from "./CustomMarker";
 import { nightStyle } from "../constant/MapStyle";
@@ -18,21 +12,14 @@ import { fetchItems } from "../util/db";
 import { itemsAction } from "../store/Items";
 import { MaterialIcons } from "@expo/vector-icons";
 import Button from "./Button";
-import {
-  useFocusEffect,
-  useIsFocused,
-  useNavigation,
-  useRoute,
-} from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 
 export default function Map(): JSX.Element {
   const navigation = useNavigation();
   const _scrollView = useRef<FlatList | null>(null); // Replace FlatList with your specific type if needed
   const _map: LegacyRef<MapView> = useRef(null);
   const dispatch = useDispatch();
-  const route = useRoute();
 
-  const isFocused = useIsFocused();
   const [items, setItems] = useState([]);
   const itemData = useSelector((state) => state.items);
   const isDark = useSelector((state) => state.theme.dark);
@@ -85,12 +72,6 @@ export default function Map(): JSX.Element {
     }
     fetch();
   }, []);
-
-  // useEffect(() => {
-  //   if (isFocused && route.params && route.params) {
-  //     setItems((prevItems) => [route.params, ...prevItems]);
-  //   }
-  // }, [isFocused, route.params]);
 
   useEffect(() => {
     setItems(itemData);

@@ -4,8 +4,6 @@ import LottieAnimation from "../components/LottieAnimation";
 import Button from "../components/Button";
 import { Color } from "../constant/Color";
 import { AntDesign } from "@expo/vector-icons";
-import { NavigationProp } from "@react-navigation/native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 export default function Login({ navigation }): JSX.Element {
   function signInHandler() {

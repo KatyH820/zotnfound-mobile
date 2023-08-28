@@ -6,7 +6,7 @@ import Phone from "./categoryIcon/Phone";
 import Wallet from "./categoryIcon/Wallet";
 import Others from "./categoryIcon/Others";
 import Key from "./categoryIcon/Key";
-import { fetchItems, filterItemsByCategory } from "../util/db";
+import { filterItemsByCategory } from "../util/db";
 import Everything from "./categoryIcon/Everything";
 import { useSelector } from "react-redux";
 

@@ -1,5 +1,5 @@
 import React, { useLayoutEffect, useState } from "react";
-import { View, Text, StyleSheet, Alert } from "react-native";
+import { StyleSheet, Alert } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import Button from "../components/Button";
 import { Feather } from "@expo/vector-icons";

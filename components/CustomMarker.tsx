@@ -1,5 +1,5 @@
 import React from "react";
-import { Marker, MarkerPressEvent } from "react-native-maps";
+import { Marker } from "react-native-maps";
 interface CustomMarkerProps {
   style: StyleSheet;
   lat: number;
