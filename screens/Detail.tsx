@@ -7,25 +7,22 @@ import Phone from "../components/categoryIcon/Phone";
 import Wallet from "../components/categoryIcon/Wallet";
 import Key from "../components/categoryIcon/Key";
 import Others from "../components/categoryIcon/Others";
-import { Item } from "../constant/Item";
+import Button from "../components/Button";
+import { useEffect, useState } from "react";
+import * as MailComposer from "expo-mail-composer";
 export default function Detail(): JSX.Element {
   const route = useRoute();
   const itemInfo = route.params;
 
-  /**
-   * {
-   * "date": "2023-08-10T22:52:58.045Z",
-   * "description": "test",
-   * "email": "stevenz9@uci.edu",
-   * "id": 21,
-   * "image": "https://firebasestorage.googleapis.com/v0/b/zotnfound2.appspot.com/o/zotnfound2%2Fimages%2F169170797175266ed7dfdf541fcd79fe979518df937ee.jpg?alt=media&token=e6169530-f470-4a0e-ad21-e49a074204e8",
-   * "islost": true,
-   * "itemdate": "2023-08-12",
-   * "location": [33.6476809266996, -117.8428101539612],
-   * "name": "test",
-   *  "type": "headphone"
-   * }
-   */
+  const [isAvailable, setIsAvailable] = useState(false);
+
+  useEffect(() => {
+    async function checkEmailIsAvailable() {
+      const isMailAvailable = await MailComposer.isAvailableAsync();
+      setIsAvailable(isMailAvailable);
+    }
+    checkEmailIsAvailable();
+  }, []);
 
   let icon;
   if (itemInfo.type === "headphone") {
@@ -39,6 +36,18 @@ export default function Detail(): JSX.Element {
   } else if (itemInfo.type === "other") {
     icon = <Others />;
   }
+
+  async function sendEmailHandler() {
+    try {
+      const sendEmail = await MailComposer.composeAsync({
+        subject: "Your Item Update",
+        body: "Hey, I have the item your post. Are you available for meet up?",
+        recipients: ["katyh1@uci.edu"],
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  } 
   return (
     <View style={styles.screen}>
       <Text style={styles.title}>{itemInfo.name}</Text>
@@ -54,6 +63,11 @@ export default function Detail(): JSX.Element {
       <Text style={styles.description}>{itemInfo.email}</Text>
       <Text style={styles.description}>{itemInfo.itemdate}</Text>
       <Text style={styles.description}>{itemInfo.description}</Text>
+      {isAvailable && (
+        <Button style={styles.button} onPress={sendEmailHandler}>
+          <Text style={styles.buttonText}>Send Email</Text>
+        </Button>
+      )}
     </View>
   );
 }
@@ -107,5 +121,14 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: "15%",
     padding: "5%",
+  },
+  button: {
+    backgroundColor: Color.foundGreen,
+    borderRadius: 10,
+    marginVertical: "2%",
+  },
+  buttonText: {
+    fontSize: 18,
+    fontWeight: "bold",
   },
 });

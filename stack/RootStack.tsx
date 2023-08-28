@@ -4,7 +4,7 @@ import ChooseLocation from "../screens/ChooseLocation";
 import AddItem from "../screens/AddItem";
 import Detail from "../screens/Detail";
 import { StatusBar } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import HomeStack from "./HomeStack";
@@ -12,9 +12,10 @@ const Stack = createNativeStackNavigator();
 
 export default function RootStack() {
   const statusStyle = useSelector((state) => state.theme.status);
+
   return (
     <>
-      <StatusBar style={statusStyle} />
+      <StatusBar barStyle={statusStyle} />
       <Stack.Navigator
         screenOptions={{
           headerShown: false,

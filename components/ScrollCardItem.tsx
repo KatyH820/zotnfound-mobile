@@ -16,9 +16,9 @@ export const ScrollCardItem = React.forwardRef(
         data={items}
         renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}
-        // pagingEnabled
-        // snapToInterval={370}
-        // snapToAlignment="center"
+        pagingEnabled
+        snapToInterval={375}
+        snapToAlignment="center"
         showsHorizontalScrollIndicator={false}
         scrollEventThrottle={1}
         style={styles.scrollContainer}

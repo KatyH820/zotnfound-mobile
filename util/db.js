@@ -1,6 +1,19 @@
 import axios from "axios";
+import Constants from "expo-constants";
 
-const BACKENDURL = "http://localhost:3001/items";
+
+//This so I can test it on my real device with backend
+const BACKENDURL = Constants?.expoConfig?.hostUri
+  ? `http://${Constants.expoConfig.hostUri
+      .split(`:`)
+      .shift()
+      .concat(`:3001/items`)}`
+  : `http://localhost:3001/items`;
+
+
+//before
+// const BACKENDURL = "http://localhost:3001/items";
+
 export async function fetchItems() {
   try {
     const data = await axios.get(BACKENDURL);
