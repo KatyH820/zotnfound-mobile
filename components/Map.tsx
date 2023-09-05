@@ -106,6 +106,8 @@ export default function Map(): JSX.Element {
               lng={item.location[1]}
               description={item.description}
               title={item.name}
+              type={item.type}
+              islost={item.islost}
               // onPress={() => onMarkerPress(index)}
             />
           ))}
