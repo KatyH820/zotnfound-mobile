@@ -115,7 +115,7 @@ export default function Map(): JSX.Element {
       <SearchBar items={items} setItems={setItems} />
       <ScrollCategory setItems={setItems} />
       <Button style={styles.button} onPress={navigateToAddItem}>
-        <MaterialIcons name="add-location" size={28} color="black" />
+        <MaterialIcons name="add-location" size={55} color="white" />
       </Button>
       {items.length > 0 && (
         <ScrollCardItem
@@ -144,8 +144,13 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: "35%",
     right: 0,
-    backgroundColor: Color.buttonGray,
+    backgroundColor: "#33B249",
+    borderRadius: 20,
     padding: 8,
     marginRight: "2%",
+    shadowColor: "#171717",
+    shadowOffset: { width: -2, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
   },
 });
