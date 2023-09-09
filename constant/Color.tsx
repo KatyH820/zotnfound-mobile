@@ -5,4 +5,5 @@ export const Color = {
   categoryBlue: "#0077b6",
   lostRed: "#dc2f02",
   foundGreen: "#43aa8b",
+  zotnfoundGreen: "#33B249",
 };

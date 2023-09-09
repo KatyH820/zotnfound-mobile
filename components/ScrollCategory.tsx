@@ -9,6 +9,8 @@ import Key from "./categoryIcon/Key";
 import { filterItemsByCategory } from "../util/db";
 import Everything from "./categoryIcon/Everything";
 import { useSelector } from "react-redux";
+import { useState } from "react";
+import { Color } from "../constant/Color";
 
 interface ScrollCategoryProps {
   setItems: React.Dispatch<React.SetStateAction<never[]>>;
@@ -16,6 +18,8 @@ interface ScrollCategoryProps {
 export default function ScrollCategory({
   setItems,
 }: ScrollCategoryProps): JSX.Element {
+  const [curCategory, setCurCategory] = useState("Everything");
+
   const allItems = useSelector((state) => state.items);
   const categoryType = [
     "Everything",
@@ -51,8 +55,15 @@ export default function ScrollCategory({
     }
     return (
       <Pressable
-        onPress={() => filterByCategory(ctgy.toLowerCase())}
-        style={({ pressed }) => [styles.category, pressed && styles.pressed]}
+        onPress={() => {
+          filterByCategory(ctgy.toLowerCase());
+          setCurCategory(ctgy);
+        }}
+        style={({ pressed }) => [
+          styles.category,
+          ctgy === curCategory && styles.curCategory,
+          pressed && styles.pressed,
+        ]}
         key={index}
       >
         <Text>{ctgy}</Text>
@@ -82,19 +93,23 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   category: {
-    height: "90%",
+    height: "100%",
     flexDirection: "row-reverse",
     justifyContent: "space-evenly",
     alignItems: "center",
     backgroundColor: "white",
     borderRadius: 15,
     width: 120,
-    marginHorizontal: 10,
-    shadowColor: "#ccc",
+    marginHorizontal: 7,
+    shadowColor: "#ddd",
     shadowOffset: { width: 3, height: 3 },
     shadowOpacity: 0.9,
     shadowRadius: 5,
     elevation: 10,
+  },
+  curCategory: {
+    borderWidth: 5,
+    borderColor: Color.zotnfoundGreen,
   },
   pressed: {
     opacity: 0.8,

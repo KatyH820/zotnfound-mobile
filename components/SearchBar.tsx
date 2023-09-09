@@ -26,7 +26,7 @@ export default function SearchBar({
       <TextInput
         onChangeText={(e) => searchBarFilter(e)}
         placeholder="Search here"
-        placeholderTextColor="black"
+        placeholderTextColor="grey"
         autoCapitalize="none"
         style={styles.text}
       />
