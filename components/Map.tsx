@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: "35%",
     right: 0,
-    backgroundColor: "#33B249",
+    backgroundColor: Color.zotnfoundGreen,
     borderRadius: 20,
     padding: 8,
     marginRight: "2%",
