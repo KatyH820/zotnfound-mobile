@@ -26,19 +26,28 @@ export default function Card({ item }): JSX.Element {
   } else if (item.type === "other") {
     icon = <Others />;
   }
+
+  const displayName =
+    item.name.length > 11 ? `${item.name.slice(0, 11)}...` : item.name;
+
   return (
     <Pressable
       onPress={navigateToDetail}
       style={({ pressed }) => [pressed && styles.pressed]}
     >
       <View style={styles.card}>
-        <Text style={styles.title}>{item.name}</Text>
-        <View style={styles.imgContainer}>
-          <Image
-            source={{ uri: item.image }}
-            style={styles.cardImage}
-            resizeMode="cover"
-          />
+        <Image
+          source={{ uri: item.image }}
+          style={styles.cardImage}
+          resizeMode="cover"
+        />
+        <View style={styles.cardContent}>
+          <View>
+            <Text style={styles.title}>{displayName}</Text>
+            <Text style={styles.description}>{item.itemdate}</Text>
+          </View>
+
+          {/* <View style={styles.categoryLabel}>{icon}</View> */}
           <View
             style={[
               styles.label,
@@ -49,12 +58,9 @@ export default function Card({ item }): JSX.Element {
               {item.islost ? "Lost" : "Found"}
             </Text>
           </View>
-
-          <View style={styles.categoryLabel}>{icon}</View>
         </View>
 
         {/* <Text style={styles.description}>{item.description}</Text> */}
-        <Text style={styles.description}>{item.itemdate}</Text>
       </View>
     </Pressable>
   );
@@ -64,50 +70,49 @@ const styles = StyleSheet.create({
   card: {
     width: 350,
     height: "100%",
-    padding: 20,
-    paddingHorizontal: 10,
+    padding: 10,
     borderRadius: 10,
     marginHorizontal: 10,
     backgroundColor: "white",
     justifyContent: "center",
-    alignItems: "center",
     elevation: 2,
     shadowColor: "black",
     shadowRadius: 5,
-    shadowOpacity: 0.3,
-    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.7,
+    shadowOffset: { width: 5, height: 7 },
   },
-  imgContainer: {
-    height: "100%",
-    width: "100%",
+  cardContent: {
+    paddingTop: 5,
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
   },
   cardImage: {
     width: "100%",
-    height: "100%",
+    height: "70%",
     borderRadius: 10,
   },
   title: {
-    fontWeight: "bold",
-    fontSize: 16,
+    fontWeight: "600",
+    fontSize: 30,
   },
   description: {
-    fontSize: 16,
+    fontSize: 15,
   },
   label: {
     backgroundColor: Color.foundGreen,
-    position: "absolute",
     borderRadius: 10,
-    padding: "5%",
-    top: 0,
-    left: 0,
-    right: 0,
-    width: "20%",
+    width: "30%",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "70%",
   },
   labelText: {
     fontWeight: "bold",
     textAlign: "center",
     color: "white",
-    fontSize: 18,
+    fontSize: 23,
   },
   pressed: {
     opacity: 0.7,

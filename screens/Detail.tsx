@@ -1,6 +1,6 @@
 import { useRoute } from "@react-navigation/native";
 import React from "react";
-import { Image, Text, View, StyleSheet } from "react-native";
+import { Image, Text, View, StyleSheet, ScrollView } from "react-native";
 import { Color } from "../constant/Color";
 import Headphone from "../components/categoryIcon/Headphone";
 import Phone from "../components/categoryIcon/Phone";
@@ -52,6 +52,8 @@ export default function Detail({ navigation }): JSX.Element {
     }
   }
 
+  function shareLink() {}
+
   async function deleteHandler() {
     try {
       deleteItem(itemInfo.id);
@@ -62,20 +64,42 @@ export default function Detail({ navigation }): JSX.Element {
     }
   }
   return (
-    <View style={styles.screen}>
-      <Text style={styles.title}>{itemInfo.name}</Text>
+    <ScrollView style={styles.screen}>
       <View style={styles.imgContainer}>
         <Image style={styles.img} source={{ uri: itemInfo.image }} />
-        <View style={[styles.label, itemInfo.islost && styles.lostLabel]}>
-          <Text style={styles.labelText}>
-            {itemInfo.islost ? "Lost" : "Found"}
-          </Text>
-        </View>
-        <View style={styles.categoryLabel}>{icon}</View>
       </View>
-      <Text style={styles.description}>{itemInfo.email}</Text>
-      <Text style={styles.description}>{itemInfo.itemdate}</Text>
-      <Text style={styles.description}>{itemInfo.description}</Text>
+      <View style={styles.itemContent}>
+        <Text style={styles.title}>{itemInfo.name}</Text>
+        <Text style={styles.description}>{itemInfo.itemdate}</Text>
+        <View style={styles.statusAndCata}>
+          <View style={[styles.label, itemInfo.islost && styles.lostLabel]}>
+            <Text style={styles.labelText}>
+              {itemInfo.islost ? "Lost" : "Found"}
+            </Text>
+          </View>
+          <View style={styles.categoryLabel}>{icon}</View>
+        </View>
+      </View>
+
+      <View style={styles.seperator} />
+
+      <View style={styles.itemContent}>
+        <Text style={styles.heading}>Description</Text>
+        <View style={styles.descriptionContainer}>
+          <ScrollView>
+            <Text style={styles.description}>{itemInfo.description}</Text>
+          </ScrollView>
+        </View>
+        <View style={styles.smallSeperator} />
+        <View style={styles.shareReportContainer}>
+          <Button onPress={shareLink} style={styles.shareReportButton}>
+            <Text style={styles.heading}>🔗 Share</Text>
+          </Button>
+          <Button onPress={shareLink} style={styles.shareReportButton}>
+            <Text style={styles.heading}>🚩 Report</Text>
+          </Button>
+        </View>
+      </View>
 
       <View style={styles.buttonContainer}>
         {isAvailable && (
@@ -90,42 +114,47 @@ export default function Detail({ navigation }): JSX.Element {
           <Text style={styles.buttonText}>Delete Item</Text>
         </Button>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+  },
+  itemContent: {
+    marginTop: 10,
+    paddingHorizontal: 20,
+    paddingBottom: 30,
+  },
+  statusAndCata: {
+    flexDirection: "row",
+    gap: 10,
+    marginTop: 10,
   },
   title: {
-    fontSize: 25,
+    fontSize: 40,
     fontWeight: "bold",
   },
   imgContainer: {
-    height: "30%",
-    width: "90%",
-    marginVertical: "10%",
+    height: 400,
+    width: "100%",
   },
   img: {
-    flex: 1,
+    width: "100%",
+    height: "100%",
   },
   label: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    padding: "5%",
-    backgroundColor: Color.foundGreen,
+    padding: "2%",
+    backgroundColor: Color.zotnfoundGreen,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 10,
-    width: "20%",
+    width: "25%",
   },
   lostLabel: { backgroundColor: Color.lostRed },
   labelText: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: "bold",
     color: "white",
   },
@@ -133,30 +162,63 @@ const styles = StyleSheet.create({
     padding: "1%",
     fontSize: 18,
   },
+
+  descriptionContainer: {
+    marginTop: 10,
+    padding: 10,
+    borderColor: "grey",
+    borderWidth: 1,
+    borderRadius: 10,
+    maxWidth: "100%",
+    maxHeight: 200,
+  },
   categoryLabel: {
-    position: "absolute",
-    top: 0,
-    right: 0,
-    backgroundColor: Color.categoryBlue,
+    borderColor: Color.categoryBlue,
+    borderWidth: 3,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 10,
     width: "15%",
-    padding: "5%",
+    padding: "2%",
   },
   button: {
     backgroundColor: Color.foundGreen,
     borderRadius: 10,
-    marginVertical: "2%",
   },
   buttonText: {
     fontSize: 18,
     fontWeight: "bold",
+    color: "white",
   },
   buttonContainer: {
-    marginTop: "5%",
     width: "100%",
     flexDirection: "row",
     justifyContent: "space-around",
+  },
+  seperator: {
+    backgroundColor: "#ecedf1",
+    height: 10,
+    marginBottom: 15,
+  },
+  heading: {
+    fontSize: 25,
+    fontWeight: "600",
+  },
+  smallSeperator: {
+    marginVertical: 25,
+    backgroundColor: "#ecedf1",
+    height: 2,
+    borderRadius: 10,
+  },
+  shareReportContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    gap: 30,
+  },
+  shareReportButton: {
+    borderWidth: 1,
+    borderColor: "grey",
+    borderRadius: 20,
+    paddingHorizontal: 30,
   },
 });
