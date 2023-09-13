@@ -30,24 +30,32 @@ export default function Card({ item }): JSX.Element {
   const displayName =
     item.name.length > 11 ? `${item.name.slice(0, 11)}...` : item.name;
 
+  const displayDescription =
+    item.description.length > 25
+      ? `${item.description.slice(0, 40)}...`
+      : item.description;
   return (
     <Pressable
       onPress={navigateToDetail}
       style={({ pressed }) => [pressed && styles.pressed]}
     >
       <View style={styles.card}>
-        <Image
-          source={{ uri: item.image }}
-          style={styles.cardImage}
-          resizeMode="cover"
-        />
         <View style={styles.cardContent}>
-          <View>
-            <Text style={styles.title}>{displayName}</Text>
-            <Text style={styles.description}>{item.itemdate}</Text>
-          </View>
+          <Text style={styles.title}>{displayName}</Text>
+          <Text style={styles.description}>📅 {item.itemdate}</Text>
+          <Text style={[styles.description, { marginTop: 4 }]}>
+            {displayDescription}
+          </Text>
 
           {/* <View style={styles.categoryLabel}>{icon}</View> */}
+        </View>
+
+        <View style={styles.imgContainer}>
+          <Image
+            source={{ uri: item.image }}
+            style={styles.cardImage}
+            resizeMode="cover"
+          />
           <View
             style={[
               styles.label,
@@ -59,8 +67,6 @@ export default function Card({ item }): JSX.Element {
             </Text>
           </View>
         </View>
-
-        {/* <Text style={styles.description}>{item.description}</Text> */}
       </View>
     </Pressable>
   );
@@ -71,42 +77,54 @@ const styles = StyleSheet.create({
     width: 350,
     height: "100%",
     padding: 10,
-    borderRadius: 10,
+    flexDirection: "row",
+    borderRadius: 30,
     marginHorizontal: 10,
     backgroundColor: "white",
     justifyContent: "center",
+    alignItems: "center",
     elevation: 2,
     shadowColor: "black",
     shadowRadius: 5,
-    shadowOpacity: 0.7,
+    shadowOpacity: 0.5,
     shadowOffset: { width: 5, height: 7 },
   },
   cardContent: {
     paddingTop: 5,
     flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center",
+    flexDirection: "column",
+    gap: 5,
+    paddingLeft: 10,
+  },
+  imgContainer: {
+    width: "50%",
+    height: "80%",
+    position: "relative",
   },
   cardImage: {
     width: "100%",
-    height: "70%",
+    height: "100%",
     borderRadius: 10,
   },
   title: {
     fontWeight: "600",
-    fontSize: 30,
+    fontSize: 25,
   },
   description: {
     fontSize: 15,
+    color: "#5A5A5A",
   },
   label: {
     backgroundColor: Color.foundGreen,
     borderRadius: 10,
-    width: "30%",
+    width: "50%",
     justifyContent: "center",
     alignItems: "center",
-    height: "70%",
+    height: "30%",
+    position: "absolute", // Absolutely position the label
+    bottom: 0, // Adjust as needed
+    left: 0, // Adjust as needed
+    opacity: 0.85,
   },
   labelText: {
     fontWeight: "bold",
