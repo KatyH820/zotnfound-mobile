@@ -66,7 +66,7 @@ export default function ScrollCategory({
         ]}
         key={index}
       >
-        <Text>{ctgy}</Text>
+        <Text style={ctgy === curCategory && styles.curText}>{ctgy}</Text>
         {icon}
       </Pressable>
     );
@@ -78,7 +78,7 @@ export default function ScrollCategory({
       scrollEventThrottle={1}
       showsHorizontalScrollIndicator={false}
       style={styles.chipsScrollView}
-      height="5%"
+      height="8%"
       width="90%"
     >
       {categoryList}
@@ -91,6 +91,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: "12%",
     paddingHorizontal: 10,
+    paddingBottom: 30,
   },
   category: {
     height: "100%",
@@ -101,15 +102,20 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     width: 120,
     marginHorizontal: 7,
-    shadowColor: "#ddd",
-    shadowOffset: { width: 3, height: 3 },
-    shadowOpacity: 0.9,
+    shadowColor: "black",
+    shadowOffset: { width: 3, height: 5 },
+    shadowOpacity: 0.3,
     shadowRadius: 5,
     elevation: 10,
   },
   curCategory: {
-    borderWidth: 5,
-    borderColor: Color.zotnfoundGreen,
+    borderColor: "#edf3fe",
+    borderWidth: 2,
+    shadowColor: "darkblue",
+  },
+  curText: {
+    color: "#7da8fa",
+    fontWeight: "bold",
   },
   pressed: {
     opacity: 0.8,
