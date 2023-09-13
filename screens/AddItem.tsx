@@ -23,7 +23,7 @@ import {
   useRoute,
 } from "@react-navigation/native";
 import { addItem } from "../util/db";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { itemsAction } from "../store/Items";
 import moment from "moment";
 import "react-native-get-random-values";
@@ -34,6 +34,7 @@ export default function AddItem(): JSX.Element {
   const navigation = useNavigation();
   const route = useRoute();
   const isFocused = useIsFocused();
+  const isDark = useSelector((state) => state.theme.dark);
   const [pickedLocation, setPickedLocation] = useState();
   const [nameInput, setNameInput] = useState();
   const [descriptionInput, setDescriptionInput] = useState();
@@ -157,14 +158,22 @@ export default function AddItem(): JSX.Element {
   }
 
   return (
-    <View style={styles.screen}>
-      <Text style={styles.title}>Add Item</Text>
+    <View
+      style={[
+        styles.screen,
+        isDark && { backgroundColor: Color.darkThemeDrawer },
+      ]}
+    >
+      <Text style={[styles.title, isDark && { color: "white" }]}>Add Item</Text>
       <Input
         placeholder="Enter Item Name"
         value={nameInput}
         onChangeText={(text: string) => setNameInput(text)}
         label="Name"
         multiline={false}
+        style={isDark && styles.darktheme}
+        labelStyle={isDark && styles.labelDarkTheme}
+        placeholderTextColor={"white"}
       />
       <Input
         placeholder="Enter Item Description"
@@ -173,6 +182,8 @@ export default function AddItem(): JSX.Element {
         label="Description"
         multiline={true}
         height={100}
+        style={isDark && styles.darktheme}
+        placeholderTextColor={"white"}
       />
       <SelectList
         setSelected={(val) => setType(val)}
@@ -182,12 +193,14 @@ export default function AddItem(): JSX.Element {
         notFoundText="No type found, please select type other"
       />
       <View style={styles.container}>
-        <Text style={styles.text}>This is Lost Item</Text>
+        <Text style={[styles.text, isDark && { color: "white" }]}>
+          This is Lost Item
+        </Text>
         <Switch value={isLost} onValueChange={setIsLost} />
       </View>
 
       <View style={styles.container}>
-        <Text style={styles.text}>Date</Text>
+        <Text style={[styles.text, isDark && { color: "white" }]}>Date</Text>
         <DateTimePicker
           mode="date"
           value={new Date(itemDate)}
@@ -197,7 +210,9 @@ export default function AddItem(): JSX.Element {
       </View>
 
       <View style={styles.container}>
-        <Text style={styles.text}>Location</Text>
+        <Text style={[styles.text, isDark && { color: "white" }]}>
+          Location
+        </Text>
         <Button style={styles.button} onPress={pickOnMap}>
           {pickedLocation ? (
             <Text style={styles.text}>
@@ -274,4 +289,9 @@ const styles = StyleSheet.create({
   img: {
     flex: 1,
   },
+  darktheme: {
+    borderColor: "white",
+    color: "white",
+  },
+  labelDarkTheme: { color: "white" },
 });
