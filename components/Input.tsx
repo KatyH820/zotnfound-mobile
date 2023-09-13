@@ -7,6 +7,8 @@ interface InputProps {
   label: string;
   multiline: boolean;
   height?: Number;
+  style: Object;
+  placeholderTextColor: string;
 }
 
 export default function Input({
@@ -16,6 +18,8 @@ export default function Input({
   label,
   multiline,
   height,
+  style,
+  placeholderTextColor,
 }: InputProps): JSX.Element {
   return (
     <View style={styles.inputContainer}>
@@ -25,8 +29,9 @@ export default function Input({
         placeholder={placeholder}
         value={value}
         onChangeText={onChangeText}
-        style={styles.input}
+        style={[styles.input, style]}
         height={height}
+        placeholderTextColor={placeholderTextColor}
       />
     </View>
   );

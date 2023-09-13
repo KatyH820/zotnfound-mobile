@@ -11,9 +11,10 @@ import Button from "../components/Button";
 import { useEffect, useState } from "react";
 import * as MailComposer from "expo-mail-composer";
 import { deleteItem } from "../util/db";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { itemsAction } from "../store/Items";
 export default function Detail({ navigation }): JSX.Element {
+  const isDark = useSelector((state) => state.theme.dark);
   const route = useRoute();
   const itemInfo = route.params;
 
@@ -64,16 +65,25 @@ export default function Detail({ navigation }): JSX.Element {
     }
   }
   return (
-    <ScrollView style={styles.screen}>
+    <ScrollView
+      style={[
+        styles.screen,
+        isDark && { backgroundColor: Color.darkThemeDrawer },
+      ]}
+    >
       <View style={styles.imgContainer}>
         <Image style={styles.img} source={{ uri: itemInfo.image }} />
       </View>
       <View style={styles.itemContent}>
-        <Text style={styles.title}>{itemInfo.name}</Text>
-        <Text style={styles.description}>📅 {itemInfo.itemdate}</Text>
+        <Text style={[styles.title, isDark && { color: "white" }]}>
+          {itemInfo.name}
+        </Text>
+        <Text style={[styles.description, isDark && { color: "white" }]}>
+          📅 {itemInfo.itemdate}
+        </Text>
         <View style={styles.statusAndCata}>
           <View style={[styles.label, itemInfo.islost && styles.lostLabel]}>
-            <Text style={styles.labelText}>
+            <Text style={[styles.labelText, isDark && { color: "white" }]}>
               {itemInfo.islost ? "Lost" : "Found"}
             </Text>
           </View>
@@ -82,19 +92,27 @@ export default function Detail({ navigation }): JSX.Element {
 
         <View style={styles.smallSeperator} />
 
-        <Text style={styles.heading}>Description</Text>
+        <Text style={[styles.heading, isDark && { color: "white" }]}>
+          Description
+        </Text>
         <View style={styles.descriptionContainer}>
           <ScrollView>
-            <Text style={styles.description}>{itemInfo.description}</Text>
+            <Text style={[styles.description, isDark && { color: "white" }]}>
+              {itemInfo.description}
+            </Text>
           </ScrollView>
         </View>
         <View style={styles.smallSeperator} />
         <View style={styles.shareReportContainer}>
           <Button onPress={shareLink} style={styles.shareReportButton}>
-            <Text style={styles.heading}>🔗 Share</Text>
+            <Text style={[styles.heading, isDark && { color: "white" }]}>
+              🔗 Share
+            </Text>
           </Button>
           <Button onPress={shareLink} style={styles.shareReportButton}>
-            <Text style={styles.heading}>🚩 Report</Text>
+            <Text style={[styles.heading, isDark && { color: "white" }]}>
+              🚩 Report
+            </Text>
           </Button>
         </View>
       </View>
