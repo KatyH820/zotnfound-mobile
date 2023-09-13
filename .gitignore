@@ -1,5 +1,8 @@
 # Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
 
+android/
+.env
+
 # dependencies
 node_modules/
 
@@ -34,5 +37,3 @@ yarn-error.*
 # typescript
 *.tsbuildinfo
 
-android/
-.env
