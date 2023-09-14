@@ -7,20 +7,24 @@ import { AntDesign } from "@expo/vector-icons";
 import { AuthContext } from "../context/AuthContext";
 
 export default function Login({ navigation }): JSX.Element {
-  const {promptAsync, logOut, userInfo} = React.useContext(AuthContext)
+  const { promptAsync, logOut, userInfo } = React.useContext(AuthContext);
 
-  useEffect(()=>{
-    if (userInfo) console.log("already logged in")
-    else{console.log("logged out")}
-  },[])
+  useEffect(() => {
+    if (userInfo) console.log("already logged in");
+    else {
+      console.log("logged out");
+    }
+  }, []);
 
   function signInHandler() {
-    console.log(userInfo)
-    if (userInfo) console.log("navigate to homepage")
-    else promptAsync()
+    if (userInfo) console.log("navigate to homepage");
+    else {
+      promptAsync();
+      console.log('navigation.navigate("Home")');
+    }
   }
 
-  function logOutHandler(){
+  function logOutHandler() {
     logOut();
   }
 

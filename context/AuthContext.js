@@ -1,16 +1,16 @@
 import { useContext, createContext, useState, useEffect } from "react";
 import * as Google from "expo-auth-session/providers/google";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {REACT_APP_ANDROID_CLIENT_ID} from "@env"
+import { REACT_APP_ANDROID_CLIENT_ID, REACT_APP_EXPO_CLIENT_ID } from "@env";
 
 export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
   const [userInfo, setUserInfo] = useState(null);
-  
+
   const [request, response, promptAsync] = Google.useAuthRequest({
-    androidClientId:
-    REACT_APP_ANDROID_CLIENT_ID,
+    androidClientId: REACT_APP_ANDROID_CLIENT_ID,
+    expoClientId: REACT_APP_EXPO_CLIENT_ID,
   });
 
   useEffect(() => {
@@ -41,13 +41,15 @@ export const AuthContextProvider = ({ children }) => {
       const user = await response.json();
       await AsyncStorage.setItem("@user", JSON.stringify(user));
       setUserInfo(user);
+      console.log('userinfo', user)
     } catch (err) {
       console.log("this error", err);
     }
   };
 
-  async function logOut(){
-    await AsyncStorage.removeItem("@user")
+  async function logOut() {
+    await AsyncStorage.removeItem("@user");
+    setUserInfo(null);
   }
 
   return (
