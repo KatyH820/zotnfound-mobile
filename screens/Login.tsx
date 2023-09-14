@@ -1,14 +1,29 @@
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React, { useEffect, useId } from "react";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 import LottieAnimation from "../components/LottieAnimation";
 import Button from "../components/Button";
 import { Color } from "../constant/Color";
 import { AntDesign } from "@expo/vector-icons";
+import { AuthContext } from "../context/AuthContext";
 
 export default function Login({ navigation }): JSX.Element {
+  const {promptAsync, logOut, userInfo} = React.useContext(AuthContext)
+
+  useEffect(()=>{
+    if (userInfo) console.log("already logged in")
+    else{console.log("logged out")}
+  },[])
+
   function signInHandler() {
-    navigation.navigate("Home");
+    console.log(userInfo)
+    if (userInfo) console.log("navigate to homepage")
+    else promptAsync()
   }
+
+  function logOutHandler(){
+    logOut();
+  }
+
   return (
     <View style={styles.screen}>
       <Text style={styles.title}>Welcome to ZotnFound</Text>
@@ -20,6 +35,9 @@ export default function Login({ navigation }): JSX.Element {
       </View>
 
       <Text style={styles.label}>Please Sign In With UCI Email</Text>
+      <Pressable onPress={logOutHandler}>
+        <Text>click me</Text>
+      </Pressable>
       <Button style={styles.button} onPress={signInHandler}>
         <AntDesign name="google" size={24} color="white" />
         <Text style={styles.buttonText}>Sign In With Google</Text>

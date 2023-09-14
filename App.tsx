@@ -7,6 +7,7 @@ import { Provider, useSelector } from "react-redux";
 import { store } from "./store";
 import RootStack from "./stack/RootStack";
 import { StatusBar } from "expo-status-bar";
+import { AuthContextProvider } from "./context/AuthContext";
 
 export default function App() {
   // const [isLoading, setIsLoading] = useState(true);
@@ -15,10 +16,12 @@ export default function App() {
   // }
 
   return (
-    <Provider store={store}>
-      <NavigationContainer>
-        <RootStack />
-      </NavigationContainer>
-    </Provider>
+    <AuthContextProvider>
+      <Provider store={store}>
+        <NavigationContainer>
+          <RootStack />
+        </NavigationContainer>
+      </Provider>
+    </AuthContextProvider>
   );
 }

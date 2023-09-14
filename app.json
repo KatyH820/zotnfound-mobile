@@ -38,6 +38,7 @@
           "cameraPermission": "ZotnFound need your permission to access your camera"
         }
       ]
-    ]
+    ],
+    "scheme": "zotnfoundmobile"
   }
 }
