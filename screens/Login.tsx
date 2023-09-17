@@ -17,10 +17,10 @@ export default function Login({ navigation }): JSX.Element {
   }, []);
 
   function signInHandler() {
-    if (userInfo) console.log("navigate to homepage");
+    if (userInfo) navigation.navigate("Home");
     else {
       promptAsync();
-      console.log('navigation.navigate("Home")');
+      navigation.navigate("Home")
     }
   }
 
