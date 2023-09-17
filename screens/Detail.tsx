@@ -79,7 +79,7 @@ export default function Detail({ navigation }): JSX.Element {
           {itemInfo.name}
         </Text>
         <Text style={[styles.description, isDark && { color: "white" }]}>
-          {itemInfo.itemdate}
+          📅 {itemInfo.itemdate}
         </Text>
         <View style={styles.statusAndCata}>
           <View style={[styles.label, itemInfo.islost && styles.lostLabel]}>
@@ -89,11 +89,9 @@ export default function Detail({ navigation }): JSX.Element {
           </View>
           <View style={styles.categoryLabel}>{icon}</View>
         </View>
-      </View>
 
-      <View style={styles.seperator} />
+        <View style={styles.smallSeperator} />
 
-      <View style={styles.itemContent}>
         <Text style={[styles.heading, isDark && { color: "white" }]}>
           Description
         </Text>
@@ -143,7 +141,6 @@ const styles = StyleSheet.create({
   itemContent: {
     marginTop: 10,
     paddingHorizontal: 20,
-    paddingBottom: 30,
   },
   statusAndCata: {
     flexDirection: "row",
@@ -151,11 +148,11 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   title: {
-    fontSize: 40,
+    fontSize: 30,
     fontWeight: "bold",
   },
   imgContainer: {
-    height: 400,
+    height: 300,
     width: "100%",
   },
   img: {
@@ -179,15 +176,12 @@ const styles = StyleSheet.create({
   description: {
     padding: "1%",
     fontSize: 18,
+    color: "#5A5A5A",
   },
 
   descriptionContainer: {
     marginTop: 10,
-    padding: 10,
-    borderColor: "grey",
-    borderWidth: 1,
     borderRadius: 10,
-    maxWidth: "100%",
     maxHeight: 200,
   },
   categoryLabel: {
@@ -209,6 +203,7 @@ const styles = StyleSheet.create({
     color: "white",
   },
   buttonContainer: {
+    marginTop: 20,
     width: "100%",
     flexDirection: "row",
     justifyContent: "space-around",
@@ -221,6 +216,7 @@ const styles = StyleSheet.create({
   heading: {
     fontSize: 25,
     fontWeight: "600",
+    marginLeft: 2,
   },
   smallSeperator: {
     marginVertical: 25,

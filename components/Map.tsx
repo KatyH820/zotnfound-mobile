@@ -1,5 +1,5 @@
 import React, { LegacyRef, useEffect, useRef, useState } from "react";
-import { View, StyleSheet, Animated, FlatList } from "react-native";
+import { View, StyleSheet, Animated, FlatList, Text } from "react-native";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import { Color } from "../constant/Color";
 import CustomMarker from "./CustomMarker";
@@ -10,7 +10,7 @@ import ScrollCategory from "./ScrollCategory";
 import { ScrollCardItem } from "./ScrollCardItem";
 import { fetchItems } from "../util/db";
 import { itemsAction } from "../store/Items";
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialIcons, Fontisto } from "@expo/vector-icons";
 import Button from "./Button";
 import { useNavigation } from "@react-navigation/native";
 
@@ -21,6 +21,7 @@ export default function Map(): JSX.Element {
   const dispatch = useDispatch();
 
   const [items, setItems] = useState([]);
+  const [isListOpen, setIsListOpen] = useState(true);
   const itemData = useSelector((state) => state.items);
   const isDark = useSelector((state) => state.theme.dark);
   const initialRegion = {
@@ -88,6 +89,10 @@ export default function Map(): JSX.Element {
     navigation.navigate("Add");
   }
 
+  function viewList() {
+    setIsListOpen((prev) => !prev);
+  }
+
   return (
     <View style={styles.container}>
       <MapView
@@ -115,9 +120,17 @@ export default function Map(): JSX.Element {
       <SearchBar items={items} setItems={setItems} />
       <ScrollCategory setItems={setItems} />
       <Button style={styles.button} onPress={navigateToAddItem}>
-        <MaterialIcons name="add-location" size={55} color="white" />
+        <MaterialIcons name="add-location" size={55} color="#74a2fa" />
       </Button>
-      {items.length > 0 && (
+      <Button style={styles.viewListButton} onPress={viewList}>
+        {isListOpen ? (
+          <Fontisto name="map" size={30} color="#74a2fa" />
+        ) : (
+          <Fontisto name="nav-icon-list-a" size={30} color="#74a2fa" />
+        )}
+      </Button>
+
+      {items.length > 0 && isListOpen && (
         <ScrollCardItem
           items={items}
           mapAnimation={mapAnimation}
@@ -142,15 +155,30 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     position: "absolute",
-    bottom: "35%",
+    bottom: "32%",
     right: 0,
-    backgroundColor: Color.zotnfoundGreen,
+    backgroundColor: "white",
     borderRadius: 20,
     padding: 8,
     marginRight: "2%",
     shadowColor: "#171717",
-    shadowOffset: { width: -2, height: 4 },
-    shadowOpacity: 0.2,
+    shadowOffset: { width: -2, height: 6 },
+    shadowOpacity: 0.3,
+    shadowRadius: 3,
+  },
+  viewListButton: {
+    justifyContent: "center",
+    alignItems: "center",
+    position: "absolute",
+    bottom: "23%",
+    right: 0,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 18,
+    marginRight: "2%",
+    shadowColor: "#171717",
+    shadowOffset: { width: -2, height: 8 },
+    shadowOpacity: 0.3,
     shadowRadius: 3,
   },
 });
