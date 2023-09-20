@@ -124,7 +124,10 @@ export default function Detail({ navigation }): JSX.Element {
           </Button>
         )}
         <Button
-          style={[styles.button, { backgroundColor: Color.lostRed }]}
+          style={[
+            styles.button,
+            { backgroundColor: Color.lostRed, marginBottom: "5%" },
+          ]}
           onPress={deleteHandler}
         >
           <Text style={styles.buttonText}>Delete Item</Text>
@@ -165,7 +168,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 10,
-    width: "25%",
+    width: "19%",
   },
   lostLabel: { backgroundColor: Color.lostRed },
   labelText: {
@@ -214,9 +217,9 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   heading: {
-    fontSize: 25,
+    fontSize: 20,
     fontWeight: "600",
-    marginLeft: 2,
+    // marginLeft: 2,
   },
   smallSeperator: {
     marginVertical: 25,
