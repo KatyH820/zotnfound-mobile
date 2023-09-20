@@ -49,3 +49,12 @@ export async function deleteItem(itemId) {
     console.error(error);
   }
 }
+
+export async function getLeaderboard() {
+  try {
+    const data = await axios.get(`${BACKENDURL}/leaderboard`);
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+}
