@@ -5,28 +5,16 @@ import { ScrollView } from "react-native-gesture-handler";
 import { getLeaderboard } from "../util/db";
 
 export default function Leaderboard(): JSX.Element {
-  const leader = [
-    {
-      id: 1,
-      email: "stevenz9@uci.edu",
-      points: 100,
-    },
-    {
-      id: 3,
-      email: "sd@uci.edu",
-      points: 100,
-    },
-    {
-      id: 2,
-      email: "test2@uci.edu",
-      points: 5,
-    },
-    {
-      id: 5,
-      email: "test@gmail.com",
-      points: 5,
-    },
-  ];
+  const [leader, setLeader] = useState([]);
+  useEffect(() => {
+    async function getLeader() {
+      const { data } = await getLeaderboard();
+      setLeader(data);
+    }
+    getLeader();
+  }, []);
+
+  console.log(leader);
   function renderItem({ item }) {
     return <UserCard email={item.email} points={item.points} />;
   }
