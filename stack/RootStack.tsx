@@ -25,7 +25,7 @@ export default function RootStack() {
           animation: "fade",
         }}
       >
-        {/* <Stack.Screen name="Login" component={Login} /> */}
+        <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Home" component={HomeStack} />
         <Stack.Screen
           name="Detail"
