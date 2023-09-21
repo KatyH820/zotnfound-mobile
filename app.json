@@ -15,7 +15,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.stevenz9.zotnfoundmobile"
     },
     "android": {
       "adaptiveIcon": {
