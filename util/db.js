@@ -25,28 +25,28 @@ export async function fetchItems() {
   }
 }
 
-// export async function filterItemsByCategory(category) {
-//   try {
-//     const data = await axios.get(`${BACKENDURL}/category/${category}`);
+export async function filterItemsByCategory(category) {
+  try {
+    const data = await axios.get(`${BACKENDURL}/category/${category}`);
 
-//     return data.data;
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
+    return data.data;
+  } catch (error) {
+    console.error(error);
+  }
+}
 
-// export async function addItem(item) {
-//   try {
-//     await axios.post(BACKENDURL, item);
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
+export async function addItem(item) {
+  try {
+    await axios.post(BACKENDURL, item);
+  } catch (error) {
+    console.error(error);
+  }
+}
 
-// export async function deleteItem(itemId) {
-//   try {
-//     await axios.delete(`${BACKENDURL}/${itemId}`);
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
+export async function deleteItem(itemId) {
+  try {
+    await axios.delete(`${BACKENDURL}/${itemId}`);
+  } catch (error) {
+    console.error(error);
+  }
+}

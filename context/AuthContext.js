@@ -1,7 +1,7 @@
 import { useContext, createContext, useState, useEffect } from "react";
 import * as Google from "expo-auth-session/providers/google";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { REACT_APP_ANDROID_CLIENT_ID, REACT_APP_EXPO_CLIENT_ID } from "@env";
+import { REACT_APP_ANDROID_CLIENT_ID, REACT_APP_EXPO_CLIENT_ID, REACT_APP_IOS_CLIENT_ID } from "@env";
 
 export const AuthContext = createContext();
 
@@ -11,6 +11,7 @@ export const AuthContextProvider = ({ children }) => {
   const [request, response, promptAsync] = Google.useAuthRequest({
     androidClientId: REACT_APP_ANDROID_CLIENT_ID,
     expoClientId: REACT_APP_EXPO_CLIENT_ID,
+    iosClientId: REACT_APP_IOS_CLIENT_ID
   });
 
   useEffect(() => {
