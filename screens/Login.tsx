@@ -20,7 +20,7 @@ export default function Login({ navigation }): JSX.Element {
     if (userInfo) navigation.navigate("Home");
     else {
       promptAsync();
-      navigation.navigate("Home")
+      navigation.navigate("Home");
     }
   }
 
@@ -39,9 +39,9 @@ export default function Login({ navigation }): JSX.Element {
       </View>
 
       <Text style={styles.label}>Please Sign In With UCI Email</Text>
-      <Pressable onPress={logOutHandler}>
+      {/* <Pressable onPress={logOutHandler}>
         <Text>click me</Text>
-      </Pressable>
+      </Pressable> */}
       <Button style={styles.button} onPress={signInHandler}>
         <AntDesign name="google" size={24} color="white" />
         <Text style={styles.buttonText}>Sign In With Google</Text>

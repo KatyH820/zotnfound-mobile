@@ -10,10 +10,10 @@ import { StatusBar } from "expo-status-bar";
 import { AuthContextProvider } from "./context/AuthContext";
 
 export default function App() {
-  // const [isLoading, setIsLoading] = useState(true);
-  // if (isLoading) {
-  //   return <SplashScreen onFinish={setIsLoading} />;
-  // }
+  const [isLoading, setIsLoading] = useState(true);
+  if (isLoading) {
+    return <SplashScreen onFinish={setIsLoading} />;
+  }
 
   return (
     <AuthContextProvider>
