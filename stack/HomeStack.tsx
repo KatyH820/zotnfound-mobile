@@ -9,6 +9,7 @@ import { View, Switch, Text, StyleSheet } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { themeAction } from "../store/theme";
 import { Color } from "../constant/Color";
+import Leaderboard from "../screens/Leaderboard";
 
 const Drawer = createDrawerNavigator();
 
@@ -41,6 +42,7 @@ export default function HomeStack() {
       }}
     >
       <Drawer.Screen name="Map" component={Home} />
+      <Drawer.Screen name="Leaderboard" component={Leaderboard} />
     </Drawer.Navigator>
   );
 }
