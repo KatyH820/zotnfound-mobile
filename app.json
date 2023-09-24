@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "zotnfound-mobile",
+    "name": "ZotnFound",
     "slug": "zotnfound-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -16,9 +16,11 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.stevenz9.zotnfoundmobile"
+      "bundleIdentifier": "com.stevenz9.zotnfoundmobile",
+      "buildNumber": "1.0.0"
     },
     "android": {
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"

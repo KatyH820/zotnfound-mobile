@@ -1,11 +1,10 @@
 import { useContext, createContext, useState, useEffect } from "react";
 import * as Google from "expo-auth-session/providers/google";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {
-  REACT_APP_ANDROID_CLIENT_ID,
-  REACT_APP_EXPO_CLIENT_ID,
-  REACT_APP_IOS_CLIENT_ID,
-} from "@env";
+
+REACT_APP_ANDROID_CLIENT_ID="488588376252-5cd3jimq3561k2l0t21bhtol0pcsti9h.apps.googleusercontent.com"
+REACT_APP_EXPO_CLIENT_ID="488588376252-tslt44o9aclpkorr8gnmhmqqramh98i4.apps.googleusercontent.com"
+REACT_APP_IOS_CLIENT_ID="488588376252-q87hsbn923du3huovareilv1oecmcbq3.apps.googleusercontent.com"
 
 export const AuthContext = createContext();
 

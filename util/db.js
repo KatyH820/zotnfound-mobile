@@ -1,16 +1,18 @@
 import axios from "axios";
-import Constants from "expo-constants";
+// import Constants from "expo-constants";
 
 //This so I can test it on my real device with backend
-const BACKENDURL = Constants?.expoConfig?.hostUri
-  ? `http://${Constants.expoConfig.hostUri.split(`:`).shift().concat(`:3001`)}`
-  : `http://localhost:3001`;
+// const BACKENDURL = Constants?.expoConfig?.hostUri
+//   ? `http://${Constants.expoConfig.hostUri.split(`:`).shift().concat(`:3001`)}`
+//   : `http://localhost:3001`;
 
 // //before
 // const BACKENDURL = "http://localhost:3001/items";
 
 // use this for android sim
 // const BACKENDURL = "http://10.0.2.2:3001/items";
+
+const BACKENDURL = "https://api.zotnfound.com";
 
 export async function fetchItems() {
   try {
