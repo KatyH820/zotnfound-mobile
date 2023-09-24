@@ -3,8 +3,11 @@ import { FlatList, StyleSheet, Text, View } from "react-native";
 import UserCard from "../components/UserCard";
 import { ScrollView } from "react-native-gesture-handler";
 import { getLeaderboard } from "../util/db";
+import { useSelector } from "react-redux";
+import { Color } from "../constant/Color";
 
 export default function Leaderboard(): JSX.Element {
+  const isDark = useSelector((state) => state.theme.dark);
   const [leader, setLeader] = useState([]);
   useEffect(() => {
     async function getLeader() {
@@ -16,11 +19,18 @@ export default function Leaderboard(): JSX.Element {
 
   console.log(leader);
   function renderItem({ item }) {
-    return <UserCard email={item.email} points={item.points} />;
+    return <UserCard email={item.email} points={item.points} isDark={isDark} />;
   }
   return (
-    <>
-      <Text style={styles.title}>Leaderboard</Text>
+    <View
+      style={[
+        styles.screen,
+        isDark && { backgroundColor: Color.darkThemeDrawer },
+      ]}
+    >
+      <Text style={[styles.title, isDark && { color: "white" }]}>
+        Leaderboard
+      </Text>
       <View style={styles.leaders}>
         <FlatList
           data={leader}
@@ -28,7 +38,7 @@ export default function Leaderboard(): JSX.Element {
           keyExtractor={(item) => item.id.toString()}
         />
       </View>
-    </>
+    </View>
   );
 }
 

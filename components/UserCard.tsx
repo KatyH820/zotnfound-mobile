@@ -4,20 +4,24 @@ import { Color } from "../constant/Color";
 interface UserCardProps {
   email: String;
   points: Number;
+  isDark: boolean;
 }
 export default function UserCard({
   email,
   points,
+  isDark,
 }: UserCardProps): JSX.Element {
   return (
-    <View style={styles.card}>
+    <View style={[styles.card, isDark && { backgroundColor: "#495057" }]}>
       <View style={styles.inline}>
-        <Text style={styles.label}>Email:</Text>
-        <Text style={styles.data}>{email}</Text>
+        <Text style={[styles.label, isDark && { color: "white" }]}>Email:</Text>
+        <Text style={[styles.data, isDark && { color: "white" }]}>{email}</Text>
       </View>
       <View style={styles.inline}>
-        <Text style={styles.label}>Score:</Text>
-        <Text style={styles.data}>{points.toString()}</Text>
+        <Text style={[styles.label, isDark && { color: "white" }]}>Score:</Text>
+        <Text style={[styles.data, isDark && { color: "white" }]}>
+          {points.toString()}
+        </Text>
       </View>
     </View>
   );
