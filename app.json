@@ -11,13 +11,14 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.stevenz9.zotnfoundmobile",
-      "buildNumber": "1.0.0"
+      "buildNumber": "1.0.0",
+      "config": {
+        "googleMapsApiKey": "$GOOGLE_MAPS_API_KEY"
+      }
     },
     "android": {
       "versionCode": 1,
@@ -25,9 +26,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "permissions": [
-        "android.permission.RECORD_AUDIO"
-      ],
+      "permissions": ["android.permission.RECORD_AUDIO"],
       "package": "com.stevenz9.zotnfoundmobile"
     },
     "web": {
