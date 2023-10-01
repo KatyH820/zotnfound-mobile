@@ -28,6 +28,8 @@ import { itemsAction } from "../store/Items";
 import moment from "moment";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
+import storage from "@react-native-firebase/storage";
+import { utils } from "@react-native-firebase/app";
 
 export default function AddItem(): JSX.Element {
   const dispatch = useDispatch();
@@ -96,6 +98,17 @@ export default function AddItem(): JSX.Element {
     return true;
   }
 
+  async function uploadToFirebase(imageUri) {
+    const time = new Date().getTime();
+    const index = imageUri.lastIndexOf("cache/ImagePicker/");
+    const name = imageUri.substring(index + "cache/ImagePicker/".length);
+    const reference = storage().ref("zotnfound2/images/" + name);
+    await reference.putFile(imageUri);
+    const url = await reference.getDownloadURL();
+
+    setImage(url);
+  }
+
   async function takeImageHandler() {
     const hasPermission = await verifyCameraPermission();
     if (!hasPermission) {
@@ -108,7 +121,7 @@ export default function AddItem(): JSX.Element {
     });
 
     if (!image.canceled) {
-      setImage(image.assets[0].uri);
+      uploadToFirebase(image.assets[0].uri);
     }
   }
 
@@ -117,13 +130,15 @@ export default function AddItem(): JSX.Element {
     if (!hasPermission) {
       return;
     }
+
     const image = await launchImageLibraryAsync({
       allowsEditing: true,
       aspect: [16, 9],
       quality: 0.5,
     });
+
     if (!image.canceled) {
-      setImage(image.assets[0].uri);
+      uploadToFirebase(image.assets[0].uri);
     }
   }
 
