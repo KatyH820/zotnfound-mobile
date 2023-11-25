@@ -28,8 +28,7 @@ import { itemsAction } from "../store/Items";
 import moment from "moment";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
-import storage from "@react-native-firebase/storage";
-import { utils } from "@react-native-firebase/app";
+import { firebase } from "../firebaseConfig";
 
 export default function AddItem(): JSX.Element {
   const dispatch = useDispatch();
@@ -44,9 +43,11 @@ export default function AddItem(): JSX.Element {
   const [type, setType] = useState();
   const [itemDate, setItemDate] = useState(moment());
   const [image, setImage] = useState();
+  const [imageurl, setImageurl] = useState();
   const [cameraPermissionInfo, requestPermission] = useCameraPermissions();
   const [photoPermissionInfo, requestPhotoPermission] =
     useMediaLibraryPermissions();
+
   useEffect(() => {
     setPickedLocation(route.params?.pickedLocation);
   }, [isFocused]);
@@ -99,14 +100,26 @@ export default function AddItem(): JSX.Element {
   }
 
   async function uploadToFirebase(imageUri) {
-    const time = new Date().getTime();
-    const index = imageUri.lastIndexOf("cache/ImagePicker/");
-    const name = imageUri.substring(index + "cache/ImagePicker/".length);
-    const reference = storage().ref("zotnfound2/images/" + name);
-    await reference.putFile(imageUri);
-    const url = await reference.getDownloadURL();
+    try {
+      const time = new Date().getTime();
+      const index = imageUri.lastIndexOf("cache/ImagePicker/");
+      const name = imageUri.substring(index + "cache/ImagePicker/".length);
+      const reference = firebase.storage().ref("zotnfound2/images/" + name);
 
-    setImage(url);
+      // Convert the file URI to a Blob
+      const response = await fetch(imageUri);
+      const blob = await response.blob();
+
+      // Use the put method to upload the Blob
+      await reference.put(blob);
+
+      // Get the download URL once the file is uploaded
+      const url = await reference.getDownloadURL();
+
+      setImageurl(url);
+    } catch (error) {
+      console.error("Error uploading file to Firebase:", error);
+    }
   }
 
   async function takeImageHandler() {
@@ -121,6 +134,8 @@ export default function AddItem(): JSX.Element {
     });
 
     if (!image.canceled) {
+      setImage(image.assets[0].uri);
+
       uploadToFirebase(image.assets[0].uri);
     }
   }
@@ -138,6 +153,8 @@ export default function AddItem(): JSX.Element {
     });
 
     if (!image.canceled) {
+      setImage(image.assets[0].uri);
+
       uploadToFirebase(image.assets[0].uri);
     }
   }
@@ -147,8 +164,12 @@ export default function AddItem(): JSX.Element {
   }
 
   async function submitHandler() {
-    if (!pickedLocation || !nameInput || !descriptionInput || !type || !image) {
+    if (!pickedLocation || !nameInput || !descriptionInput || !type) {
       Alert.alert("Missing Information", "You must enter all Information");
+      return;
+    }
+    if (!imageurl) {
+      Alert.alert("Image still processing", "Please wait for image to upload");
       return;
     }
 
@@ -159,9 +180,8 @@ export default function AddItem(): JSX.Element {
       location: [pickedLocation.lat, pickedLocation.lng],
       date: moment().format("YYYY-MM-DD"),
       itemdate: itemDate.format("YYYY-MM-DD"),
-      email: "",
-      image:
-        "https://dfstudio-d420.kxcdn.com/wordpress/wp-content/uploads/2019/06/digital_camera_photo-980x653.jpg", // for now it is hardcoded to work with backend, later change to image
+      email: "katyh1@uci.edu",
+      image: imageurl,
       islost: isLost,
     };
 
