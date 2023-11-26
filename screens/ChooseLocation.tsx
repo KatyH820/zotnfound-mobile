@@ -57,6 +57,7 @@ export default function ChooseLocation({ navigation }): JSX.Element {
       initialRegion={initialRegion}
       style={styles.map}
       onPress={selectLocationHandler}
+      provider="google"
     >
       {selectedLocation && (
         <Marker
