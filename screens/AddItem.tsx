@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Switch, Alert, Image } from "react-native";
 import Input from "../components/Input";
 import { SelectList } from "react-native-dropdown-select-list";
-// import DateTimePicker, {
-//   DateTimePickerEvent,
-// } from "@react-native-community/datetimepicker";
+import DateTimePicker, {
+  DateTimePickerEvent,
+} from "@react-native-community/datetimepicker";
 import {
   launchCameraAsync,
   useCameraPermissions,
@@ -61,7 +61,7 @@ export default function AddItem(): JSX.Element {
   ];
 
   const handleDateChange = (
-    // event: DateTimePickerEvent,
+    event: DateTimePickerEvent,
     selectedDate?: Date
   ) => {
     if (selectedDate !== undefined) {
@@ -164,7 +164,7 @@ export default function AddItem(): JSX.Element {
   }
 
   async function submitHandler() {
-    if (!pickedLocation || !nameInput || !descriptionInput || !type) {
+    if (!pickedLocation || !nameInput || !descriptionInput || !type || !image) {
       Alert.alert("Missing Information", "You must enter all Information");
       return;
     }
@@ -236,12 +236,12 @@ export default function AddItem(): JSX.Element {
 
       <View style={styles.container}>
         <Text style={[styles.text, isDark && { color: "white" }]}>Date</Text>
-        {/* <DateTimePicker
+        <DateTimePicker
           mode="date"
           value={new Date(itemDate)}
           onChange={handleDateChange}
           display="calendar"
-        /> */}
+        />
       </View>
 
       <View style={styles.container}>
